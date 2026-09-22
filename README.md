@@ -1,313 +1,135 @@
-# AI API Pricing
+# AI API Pricing — DeepAPI
 
-A practical reference for comparing AI API pricing across major model providers,compare AI API pricing across OpenAI, Anthropic Claude, Gemini, DeepSeek, Grok, Llama and 100+ providers. Token prices, context windows, cached pricing and provider comparisons by deepapi.app
+Compare LLM API prices across models and providers, with input and
+output costs shown separately.
 
+[Open the API price comparison](https://deepapi.app/model-api-price)
 
-DeepAPI tracks model pricing, provider differences, token costs, context windows, cached input rates, batch pricing, and other cost-related details that are often difficult to compare directly.
+A low input price does not always mean a low bill. Output length,
+cache usage, and provider-specific charges can change which option
+costs less.
 
-Interactive comparison:
+This repository is a public reference for DeepAPI's API pricing
+comparisons. It explains how to read token prices and estimate costs.
+The interactive listings are on the website; this repository does
+not contain the application source code or a complete pricing dataset.
 
-**https://deepapi.app**
+## Start with the question you need to answer
 
----
+| Question | Where to look |
+| --- | --- |
+| What do different models and providers charge? | [API price comparison](https://deepapi.app/model-api-price) |
+| What information does DeepAPI list about a model? | [Model directory](https://deepapi.app/models) |
+| How are prices and uncertain information handled? | [Comparison methodology](https://deepapi.app/methodology) |
+| Am I comparing an API with a monthly app plan? | [Subscription prices](https://deepapi.app/subscriptions) |
 
-## What this project covers
+For provider comparisons, match the exact model version first.
+Similar names do not necessarily mean identical models, context
+limits, or service conditions.
 
-AI API pricing is not always directly comparable.
+## How much does an LLM API cost per million tokens?
 
-Different providers may:
+Text API prices are commonly quoted separately for input and output.
+Keep those rates separate when estimating a bill.
 
-- charge separate rates for input and output tokens
-- offer lower prices for cached input
-- discount batch requests
-- apply different prices above certain context lengths
-- host the same model at different prices
-- use different billing units
-- change pricing without much notice
+For a basic text workload without caching or additional charges:
 
-This repository is intended to make those differences easier to understand.
+    estimated cost =
+      (input tokens / 1,000,000 × input rate)
+      + (output tokens / 1,000,000 × output rate)
 
-The goal is not just to list official prices, but to normalize them into a format that is easier to compare.
+Here is a worked example using fictional USD prices:
 
----
+| Provider | Input / 1M tokens | Output / 1M tokens |
+| --- | ---: | ---: |
+| A | $1.00 | $4.00 |
+| B | $0.50 | $6.00 |
 
-## AI API pricing comparison
+For 10 million input tokens and 1 million output tokens:
 
-Typical data points include:
+- Provider A: (10 × $1.00) + (1 × $4.00) = **$14.00**
+- Provider B: (10 × $0.50) + (1 × $6.00) = **$11.00**
 
-| Field | Description |
-|---|---|
-| Model | Model name |
-| Model provider | Company or organization behind the model |
-| API provider | Platform selling access to the model |
-| Input price | Cost per 1M input tokens |
-| Output price | Cost per 1M output tokens |
-| Cached input | Discounted cached-token pricing, where available |
-| Batch price | Batch API pricing, where available |
-| Context window | Maximum supported context length |
-| Modality | Text, vision, audio, image, video, embedding, etc. |
-| Last checked | Most recent pricing verification |
+For 1 million input tokens and 1 million output tokens:
 
-For the live comparison database, see:
+- Provider A: $1.00 + $4.00 = **$5.00**
+- Provider B: $0.50 + $6.00 = **$6.50**
 
-**https://deepapi.app/models**
+The cheaper option changes with the workload. Adding the two unit
+prices gives an equal-volume comparison, not an estimate for every
+application.
 
----
+These examples exclude caching, tools, taxes, and other charges.
+They are not quotes from actual providers.
 
-## Providers covered
+## Comparing providers for the same model
 
-DeepAPI tracks pricing from major AI model companies and API platforms, including:
+Before choosing the lowest listed price, check:
 
-- OpenAI
-- Anthropic
-- Google
-- DeepSeek
-- xAI
-- Mistral
-- Meta
-- OpenRouter
-- Together AI
-- Fireworks AI
-- Groq
-- and other API providers
+- **Model identity:** exact version, variant, and supported features.
+- **Billing:** currency, units, minimum charges, and additional fees.
+- **Usage conditions:** context tiers, batch processing, or promotions.
+- **Service:** rate limits, latency, availability, and data policies.
+- **Evidence:** the source of the quote and when it was checked.
 
-Coverage varies by model and provider.
+For an OpenRouter vs direct API comparison, use the same model and
+usage assumptions on both sides. Check any platform or payment fees
+separately from the model's token rates.
 
-Some models are available directly from the model company, while others are available through third-party inference providers.
+A lower token price alone does not establish better value.
 
----
+## Cached input, batch requests, and long context
 
-## Why provider-level pricing matters
+A standard input rate does not describe every request.
 
-The same model can be available from more than one API provider.
+**Cached input:** Check which tokens qualify for a cache-read rate
+and whether cache writes or storage incur separate charges. Do not
+apply a cache discount to the entire prompt by default.
 
-That means model selection and provider selection are two separate decisions.
+**Batch requests:** Compare batch rates separately from interactive
+rates, and check the provider's processing conditions.
 
-For example, a developer may first decide to use a specific model family and then compare:
+**Long context:** Check whether the published rate changes above an
+input-length threshold.
 
-- direct API access
-- OpenRouter
-- Together AI
-- Fireworks AI
-- Groq
-- other compatible providers
+For image, audio, video, or request-based billing, keep the original
+unit visible. A price per image or minute is not directly comparable
+to a text price per million tokens.
 
-The cheapest provider can vary by model, usage pattern, caching behavior, and request type.
+## Reading the listings
 
-DeepAPI is built around this distinction.
+DeepAPI includes listings for model companies and third-party API
+providers. Coverage and available fields vary.
 
----
+Read the source and verification information beside each quote.
+Some observations may be unverified or lack a source link. Treat
+those as leads to investigate, not confirmed purchase prices.
 
-## Common pricing questions
+A checked date describes a past check; it does not guarantee that
+a price is unchanged today. Confirm the provider's current terms
+before committing a production workload.
 
-This repository and DeepAPI are intended to help answer questions such as:
+See the [methodology](https://deepapi.app/methodology) for the site's
+approach to sources, normalization, and uncertainty.
 
-- What is the cheapest AI API?
-- Which LLM has the lowest token cost?
-- How much does an AI API cost per million tokens?
-- What is the difference between input and output token pricing?
-- Which provider offers the cheapest API access for a specific model?
-- Is OpenRouter cheaper than using a direct API?
-- How much can cached input reduce API cost?
-- Is batch API pricing cheaper?
-- How much does long-context usage cost?
-- How do OpenAI, Claude, Gemini and DeepSeek API prices compare?
+## Report a pricing error
 
----
+Please open an issue with:
 
-## Input vs output token pricing
+- The DeepAPI page URL.
+- The exact model and API provider.
+- The listed price and the proposed correction.
+- An official pricing or documentation link, if available.
+- The date checked and any relevant conditions.
 
-Most text-based LLM APIs charge separately for input and output tokens.
-
-Input tokens include content sent to the model, such as:
-
-- system prompts
-- user prompts
-- conversation history
-- retrieved documents
-- code
-- tool output
-
-Output tokens are generated by the model.
-
-Output pricing is often higher than input pricing, so two models with similar input costs may have very different total costs for generation-heavy workloads.
-
----
-
-## Cached token pricing
-
-Some providers offer lower rates when parts of a prompt can be reused from cache.
-
-This can make a large difference for workloads that repeatedly send the same context.
-
-Typical examples include:
-
-- coding agents
-- long system prompts
-- customer support bots
-- document analysis
-- multi-turn conversations
-- retrieval-augmented generation
-
-For these use cases, headline input pricing alone can be misleading.
-
----
-
-## Batch API pricing
-
-Some providers offer lower rates for asynchronous or batch processing.
-
-Batch pricing can be useful when requests do not need an immediate response.
-
-Common use cases include:
-
-- large-scale classification
-- summarization
-- embeddings generation
-- evaluation
-- data enrichment
-- offline processing
-
-Batch discounts should be compared separately from standard real-time API pricing.
-
----
-
-## Context window pricing
-
-Large context windows are useful, but they can increase cost quickly.
-
-A model with a low per-token price is not necessarily the cheapest option if a workload repeatedly sends very large prompts.
-
-When comparing models, it is useful to consider:
-
-1. input token price
-2. output token price
-3. cached token price
-4. expected context size
-5. average output length
-6. request frequency
-
-DeepAPI is designed to make these comparisons easier.
-
----
-
-## AI API cost per 1M tokens
-
-Where possible, pricing is normalized to:
-
-**USD per 1 million tokens**
-
-This makes it easier to compare providers that publish prices in different formats.
-
-However, not every API can be reduced to a single number.
-
-Some providers use:
-
-- tiered pricing
-- context-based pricing
-- request-based pricing
-- image-based pricing
-- audio-minute pricing
-- GPU-time pricing
-
-Those cases should be treated separately rather than forced into an inaccurate token-price comparison.
-
----
-
-## Popular comparison areas
-
-Common comparisons include:
-
-- OpenAI API pricing
-- Claude API pricing
-- Gemini API pricing
-- DeepSeek API pricing
-- Grok API pricing
-- Mistral API pricing
-- OpenRouter pricing
-- GPT vs Claude API pricing
-- Claude vs Gemini API pricing
-- DeepSeek vs OpenAI API pricing
-- OpenRouter vs direct API pricing
-- cheapest LLM API
-- cheapest AI API for developers
-
-Live comparisons are available at:
-
-**https://deepapi.app**
-
----
-
-## Data notes
-
-Pricing changes frequently.
-
-Some providers update prices without changing model names, while others release new model variants or special pricing tiers.
-
-For that reason:
-
-- pricing should be treated as time-sensitive
-- provider-specific exceptions should be preserved
-- cached and batch rates should not be mixed with standard rates
-- model-company pricing and third-party provider pricing should be kept separate
-- unclear pricing should be marked rather than guessed
-
-DeepAPI aims to prioritize comparability over oversimplification.
-
----
-
-## Data source and methodology
-
-Pricing data may be collected from:
-
-- official model provider pricing pages
-- official API documentation
-- inference provider pricing pages
-- public model metadata
-- provider APIs
-- other verifiable public sources
-
-Where possible, values are normalized into a consistent structure.
-
-If pricing cannot be compared cleanly, the provider-specific format is retained.
-
----
+Include the currency and billing unit. Please do not include API
+keys, account details, or private billing documents.
 
 ## About DeepAPI
 
-[DeepAPI](https://deepapi.app) is an independent AI API pricing comparison platform.
+[DeepAPI](https://deepapi.app) is an independent comparison site for
+AI products and prices. This repository focuses on API costs;
+the website also covers subscriptions and buying guides.
 
-It helps developers compare:
-
-- AI models
-- API providers
-- token pricing
-- context windows
-- cached pricing
-- batch pricing
-- model capabilities
-- provider-level price differences
-
-The focus is simple:
-
-**make AI API pricing easier to compare before you choose a model or provider.**
-
----
-
-## Links
-
-- Website: https://deepapi.app
-- Model pricing: https://deepapi.app/models
-- API price comparison: https://deepapi.app/model-api-price
-- Subscription comparison: https://deepapi.app/subscriptions
-- Model comparison: https://deepapi.app/compare
-
----
-
-## Disclaimer
-
-Pricing may change at any time.
-
-Always verify current pricing with the API provider before making purchasing or production decisions.
-
-This project is for informational purposes only.
+DeepAPI is not affiliated with the providers listed. Prices and
+availability can change, and a listing is not an endorsement.
